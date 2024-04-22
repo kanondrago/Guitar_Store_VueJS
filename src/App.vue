@@ -3,6 +3,8 @@
 
     import Guitarra from "./components/Guitarra.vue"
 
+    import {db} from "./data/guitarras"
+
     // Dos formas de declarar
     const guitarras = ref([]);
 
@@ -105,7 +107,11 @@
 
         <div class="row mt-5">
             <!-- Componente Guitarra -->
-            <Guitarra></Guitarra>
+            <Guitarra
+                v-for="guitarra in guitarras"
+                :key="guitarra.id"
+                v-bind:guitarra="guitarra"
+            ></Guitarra>
         </div>
     </main>
 
