@@ -1,11 +1,14 @@
 
 <script setup>
 
+    import { ref, defineProps, defineEmits } from 'vue'
+
     const props = defineProps({
         guitarra: Object,
         required: true
     })
 
+    const emits = defineEmits(['agregar-carrito']);
 
 </script>
 
@@ -22,6 +25,7 @@
             <button 
                 type="button"
                 class="btn btn-dark w-100 "
+                v-on:click="$emit('agregar-carrito')"
             >Agregar al Carrito</button>
         </div>
     </div><!-- FIN GUITARRA -->
