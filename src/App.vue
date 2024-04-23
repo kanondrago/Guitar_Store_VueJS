@@ -7,6 +7,7 @@
 
     // Dos formas de declarar
     const guitarras = ref([]);
+    const carrito = ref([]);
 
     // Metodo del ciclo de vida - Componente listo
     onMounted(() => {
@@ -14,8 +15,9 @@
       guitarras.value = db;
     })
 
-    const agregarCarrito = () => {
-        console.log('Agregando ...');
+    const agregarCarrito = (guitarra) => {
+        guitarra.cantidad = 1;
+        carrito.value.push(guitarra);
     }
 
 </script>
