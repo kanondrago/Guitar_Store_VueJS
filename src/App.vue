@@ -10,11 +10,13 @@
     // Dos formas de declarar
     const guitarras = ref([]);
     const carrito = ref([]);
+    const guitarra = ref({});
 
     // Metodo del ciclo de vida - Componente listo
     onMounted(() => {
       // Se puede hacer una consulta usando fetch o axios
       guitarras.value = db;
+      guitarra.value = db[3];
     })
 
     const agregarCarrito = (guitarra) => {
@@ -29,8 +31,23 @@
             guitarra.cantidad = 1;
             carrito.value.push(guitarra);
         }
+    }
 
-   
+    const aumentarProducto = (id) => {
+         const index = carrito.value.findIndex((producto) => producto.id === id);
+         if(carrito.value[index].cantidad>=5) return
+         carrito.value[index].cantidad++;
+    }
+
+    const disminuirProducto = (id) => {
+         const index = carrito.value.findIndex((producto) => producto.id === id);
+         if(carrito.value[index].cantidad<=1) return
+         carrito.value[index].cantidad--;
+    }
+
+    const eliminarProducto = (id) => {
+        const elemento = carrito.value.findIndex((producto) => producto.id === id);
+        carrito.value.splice(elemento, 1);
     }
 
 </script>
@@ -38,7 +55,12 @@
 <template>
 
     <Header
-        :carrito="carrito">
+        :carrito="carrito"
+        :guitarra="guitarra"
+        @aumentar-producto="aumentarProducto"
+        @disminuir-producto="disminuirProducto"
+        @eliminar-producto="eliminarProducto"
+        @agregar-carrito="agregarCarrito">
     </Header>
 
     <main class="container-xl mt-5">
