@@ -1,5 +1,7 @@
 <script setup>
 
+    import {computed} from 'vue';
+
     const props = defineProps({
         carrito: {
             type: Array,
@@ -13,6 +15,10 @@
 
     const emits = defineEmits(['aumentar-producto', 'disminuir-producto', 'eliminar-producto', 'agregar-carrito'])
 
+    // Los computed mantienen una reactividad para muchas interacciones - Se busca dinamicidad
+    const totalPagar = computed(() => {
+        return props.carrito.reduce((total, producto) => total + (producto.cantidad*producto.precio), 0)
+    })
 
 </script>
 
@@ -60,7 +66,7 @@
                                             </td>
                                             <td>{{producto.nombre}}</td>
                                             <td class="fw-bold">
-                                                    ${{producto.precio}}
+                                                    ${{producto.precio*producto.cantidad}}
                                             </td>
                                             <td class="flex align-items-start gap-4">
                                                 <button
@@ -92,7 +98,7 @@
                                     </tbody>
                                 </table>
     
-                                <p class="text-end">Total pagar: <span class="fw-bold">$5000</span></p>
+                                <p class="text-end">Total pagar: <span class="fw-bold">${{totalPagar}}</span></p>
                                 <button class="btn btn-dark w-100 mt-3 p-2">Vaciar Carrito</button>
                             </div>
                         </div>
