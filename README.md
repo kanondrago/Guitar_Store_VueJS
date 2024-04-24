@@ -8,3 +8,5 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 
 
 # Guitar_Store_VueJS
+
+Aplicación en VueJS con Composition API para un carrito de compras de una tienda de guitarras
