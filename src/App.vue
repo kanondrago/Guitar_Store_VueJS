@@ -42,6 +42,7 @@
 
         if(existeCarrito>=0){
             // carrito.value[existeCarrito].cantidad++
+            if(carrito.value[existeCarrito].cantidad>=5) return
             carrito.value[existeCarrito].cantidad++
         }
         else {
