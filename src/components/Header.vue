@@ -20,6 +20,10 @@
         return props.carrito.reduce((total, producto) => total + (producto.cantidad*producto.precio), 0)
     })
 
+    const totalProductos = computed(() => {
+        return props.carrito.reduce((total, item) => total + item.cantidad, 0);
+    })
+
 </script>
 
 <template>
@@ -35,7 +39,10 @@
                     <div 
                         class="carrito"
                     >
-                        <img class="img-fluid" src="/public/img/carrito.png" alt="imagen carrito" />
+                        <div>
+                            <h5 class="circulo">{{ totalProductos }}</h5>
+                            <img class="img-fluid" src="/public/img/carrito.png" alt="imagen carrito" />
+                        </div>
 
                         <div id="carrito" class="bg-white p-3">
                             <p 
@@ -127,3 +134,16 @@
         <img class="header-guitarra" src="/public/img/header_guitarra.png" alt="imagen header">
     </header>
 </template>
+
+<style>
+    .circulo {
+        margin: 0;
+        margin-left: 20px;
+        background-color: white;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        text-align: center;
+    }
+
+</style>
