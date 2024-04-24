@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, reactive, onMounted } from 'vue';
+    import { ref, reactive, onMounted, watch } from 'vue';
 
     import Guitarra from "./components/Guitarra.vue"
     import Header from "./components/Header.vue"
@@ -11,6 +11,13 @@
     const guitarras = ref([]);
     const carrito = ref([]);
     const guitarra = ref({});
+
+    // watch -> Ponemos el state que vamos a estar observardo si cambia
+    watch(carrito, () => {
+        guardarLocalStorage()
+    }, {
+        deep: true // Para comparar un arreglo de diferentes objetos - verificación estricta
+    })
 
     // Metodo del ciclo de vida - Componente listo
     onMounted(() => {
@@ -41,34 +48,28 @@
             guitarra.cantidad = 1;
             carrito.value.push(guitarra);
         }
-
-        guardarLocalStorage()
     }
 
     const aumentarProducto = (id) => {
          const index = carrito.value.findIndex((producto) => producto.id === id);
          if(carrito.value[index].cantidad>=5) return
          carrito.value[index].cantidad++;
-         guardarLocalStorage()
     }
 
     const disminuirProducto = (id) => {
          const index = carrito.value.findIndex((producto) => producto.id === id);
          if(carrito.value[index].cantidad<=1) return
          carrito.value[index].cantidad--;
-         guardarLocalStorage()
     }
 
     const eliminarProducto = (id) => {
         // const elemento = carrito.value.findIndex((producto) => producto.id === id);
         // carrito.value.splice(elemento, 1);
         carrito.value = carrito.value.filter(producto => (producto.id !== id))
-        guardarLocalStorage()
     }
 
     const vaciarCarrito = () => {
         carrito.value = []
-        guardarLocalStorage()
     }
 
 </script>
