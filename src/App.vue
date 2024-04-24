@@ -17,7 +17,17 @@
       // Se puede hacer una consulta usando fetch o axios
       guitarras.value = db;
       guitarra.value = db[3];
+
+      const carritoStorage = localStorage.getItem('carrito');
+
+      if(carritoStorage) {
+        carrito.value = JSON.parse(carritoStorage);
+      }
     })
+
+    const guardarLocalStorage = () => {
+        localStorage.setItem('carrito', JSON.stringify(carrito.value))
+    }
 
     const agregarCarrito = (guitarra) => {
 
@@ -31,23 +41,34 @@
             guitarra.cantidad = 1;
             carrito.value.push(guitarra);
         }
+
+        guardarLocalStorage()
     }
 
     const aumentarProducto = (id) => {
          const index = carrito.value.findIndex((producto) => producto.id === id);
          if(carrito.value[index].cantidad>=5) return
          carrito.value[index].cantidad++;
+         guardarLocalStorage()
     }
 
     const disminuirProducto = (id) => {
          const index = carrito.value.findIndex((producto) => producto.id === id);
          if(carrito.value[index].cantidad<=1) return
          carrito.value[index].cantidad--;
+         guardarLocalStorage()
     }
 
     const eliminarProducto = (id) => {
-        const elemento = carrito.value.findIndex((producto) => producto.id === id);
-        carrito.value.splice(elemento, 1);
+        // const elemento = carrito.value.findIndex((producto) => producto.id === id);
+        // carrito.value.splice(elemento, 1);
+        carrito.value = carrito.value.filter(producto => (producto.id !== id))
+        guardarLocalStorage()
+    }
+
+    const vaciarCarrito = () => {
+        carrito.value = []
+        guardarLocalStorage()
     }
 
 </script>
@@ -60,7 +81,8 @@
         @aumentar-producto="aumentarProducto"
         @disminuir-producto="disminuirProducto"
         @eliminar-producto="eliminarProducto"
-        @agregar-carrito="agregarCarrito">
+        @agregar-carrito="agregarCarrito"
+        @vaciar-carrito="vaciarCarrito">
     </Header>
 
     <main class="container-xl mt-5">

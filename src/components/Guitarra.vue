@@ -26,7 +26,7 @@
                 type="button"
                 class="btn btn-dark w-100 "
                 v-on:click="$emit('agregar-carrito', guitarra)">
-            Agregar al Carrito
+                Agregar al Carrito
             </button>
         </div>
     </div><!-- FIN GUITARRA -->

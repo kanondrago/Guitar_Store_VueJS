@@ -13,7 +13,7 @@
         }
     })
 
-    const emits = defineEmits(['aumentar-producto', 'disminuir-producto', 'eliminar-producto', 'agregar-carrito'])
+    const emits = defineEmits(['aumentar-producto', 'disminuir-producto', 'eliminar-producto', 'agregar-carrito', 'vaciar-carrito'])
 
     // Los computed mantienen una reactividad para muchas interacciones - Se busca dinamicidad
     const totalPagar = computed(() => {
@@ -99,7 +99,11 @@
                                 </table>
     
                                 <p class="text-end">Total pagar: <span class="fw-bold">${{totalPagar}}</span></p>
-                                <button class="btn btn-dark w-100 mt-3 p-2">Vaciar Carrito</button>
+                                <button 
+                                    class="btn btn-dark w-100 mt-3 p-2"
+                                    @click="$emit('vaciar-carrito')">
+                                    Vaciar Carrito
+                                </button>
                             </div>
                         </div>
                     </div>
